@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TEST</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"
+  integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg=="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div style="width:1200px">
+  <canvas id="mychart"></canvas>
+</div>
+<script>
+var ctx = document.getElementById('mychart');
+
+var labels = {{ index|tojson }};
+var data = {{ values|tojson }};
+
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'PBR',
+      data: data,
+      borderColor: '#f88',
+    }],
+  },
+  options: {
+    y: {
+      min: 0,
+      max: 1.5,
+    },
+    x: {
+      type: 'time',
+      time: {
+        displayFormats: {
+            hour: 'MMM D', // 時間は非表示にする
+            day: 'MMM D' // 例: Jan 1
+          },
+        tooltipFormat: 'll' // ツールチップにも日付のフォーマットを適用
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
